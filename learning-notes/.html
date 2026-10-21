@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>001—003 项目学习思维导图</title>
+<style>
+:root {
+  --bg:#f4f5ef; --paper:#fffefa; --ink:#233b32;
+  --muted:#6a7971; --line:#d5dfd4;
+}
+* { box-sizing:border-box }
+body {
+  margin:0; background:var(--bg); color:var(--ink);
+  font:15px/1.75 system-ui,"Microsoft YaHei",sans-serif;
+}
+header, main { max-width:1450px; margin:auto; padding:30px }
+header { padding-bottom:15px }
+small, .muted { color:var(--muted) }
+.eyebrow { color:#347a58; font-size:12px; letter-spacing:2px }
+h1 { font-size:clamp(25px,4vw,38px); margin:8px 0 }
+h2 { font-size:19px; margin:0 }
+header p { margin:8px 0; color:var(--muted) }
+.controls { display:flex; gap:8px; flex-wrap:wrap; margin-top:18px }
+button,input {
+  border:1px solid var(--line); border-radius:8px;
+  padding:9px 12px; background:white; color:var(--ink); font:inherit;
+}
+input { width:300px; max-width:100% }
+button { cursor:pointer }
+button:hover { border-color:#397b58 }
+button:focus-visible,input:focus-visible,summary:focus-visible {
+  outline:3px solid #80b99a; outline-offset:3px;
+}
+.root {
+  width:fit-content; max-width:100%; margin:0 auto;
+  border-radius:16px; background:#244735; color:white;
+  padding:20px 35px; text-align:center; position:relative;
+}
+.root strong { display:block; font-size:24px }
+.root small { color:#d2e5d7 }
+.root::after {
+  content:""; position:absolute; height:26px;
+  border-left:2px solid #adc5b2; left:50%; top:100%;
+}
+.branches {
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px; margin-top:50px; position:relative;
+}
+.branches::before {
+  content:""; position:absolute; top:-25px; left:16.66%;
+  right:16.66%; border-top:2px solid #adc5b2;
+}
+.branch {
+  --accent:#347b58; --tint:#eaf2e5;
+  position:relative; min-width:0;
+}
+.branch::before {
+  content:""; position:absolute; height:25px;
+  border-left:2px solid #adc5b2; left:50%; top:-25px;
+}
+.branch.blue { --accent:#376fa2; --tint:#e9f0f7 }
+.branch.orange { --accent:#9d6a2e; --tint:#f7eddd }
+.branch-title {
+  border:1px solid var(--line); border-radius:12px;
+  background:var(--tint); padding:17px;
+}
+.number { color:var(--accent); font-size:26px; font-weight:800 }
+.branch-title p { margin:3px 0 0; color:var(--muted); font-size:12px }
+.nodes {
+  margin:15px 0 0 12px; padding-left:14px;
+  border-left:2px solid var(--line);
+}
+details {
+  position:relative; margin-bottom:11px;
+  background:var(--paper); border:1px solid var(--line);
+  border-radius:9px;
+}
+details::before {
+  content:""; position:absolute; left:-16px; top:22px;
+  width:15px; border-top:2px solid var(--line);
+}
+summary {
+  padding:11px 12px; font-weight:650;
+  cursor:pointer; font-size:14px;
+}
+details[open] summary {
+  background:#f6f8f1; border-radius:9px 9px 0 0;
+  border-bottom:1px solid var(--line);
+}
+.content { padding:10px 14px 14px; font-size:13px }
+.content p { margin:5px 0 }
+ul,ol { margin:6px 0; padding-left:20px }
+li { margin:5px 0 }
+code {
+  font:12px/1.6 ui-monospace,Consolas,monospace;
+  background:#edf2e9; padding:1px 4px;
+  border-radius:4px; overflow-wrap:anywhere;
+}
+.chain {
+  border-left:3px solid var(--accent);
+  padding-left:10px; margin:8px 0;
+}
+.badge {
+  font-size:11px; border:1px solid #d3b47d;
+  color:#8b6128; border-radius:15px; padding:1px 6px;
+}
+.note {
+  margin:20px 0; padding:13px 17px;
+  border-left:4px solid #c19a55; background:#fbf5e9;
+  font-size:13px;
+}
+.flow {
+  display:flex; flex-wrap:wrap; align-items:center;
+  gap:7px; margin-bottom:25px; font-size:12px;
+}
+.flow span {
+  padding:5px 9px; border-radius:5px; background:#e8efe3;
+}
+.flow .future { background:#f4ead8; border:1px dashed #c4a166 }
+.flow b { color:#91a18f }
+.case {
+  margin-top:28px; background:var(--paper);
+  border:1px solid var(--line); border-radius:14px; padding:24px;
+}
+.metrics {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  gap:12px; margin:16px 0;
+}
+.metric { background:#edf3e7; border-radius:9px; padding:14px }
+.metric strong { display:block; font-size:27px; line-height:1.4 }
+.metric span { color:var(--muted); font-size:12px }
+.formulas { display:grid; grid-template-columns:1fr 1fr; gap:14px }
+.formula { background:#f4f0e5; padding:16px; border-radius:9px }
+pre {
+  white-space:pre-wrap; overflow-wrap:anywhere;
+  font:13px/1.8 ui-monospace,Consolas,monospace; margin-bottom:0;
+}
+table { width:100%; border-collapse:collapse; margin-top:18px; font-size:13px }
+th,td { text-align:left; padding:9px; border-bottom:1px solid var(--line) }
+th { background:#eef2e7 }
+footer { margin-top:20px; color:var(--muted); font-size:12px }
+.hidden { display:none!important }
+.match { outline:2px solid #d6ac58 }
+#empty { display:none; text-align:center; color:var(--muted) }
+@media(max-width:1000px) {
+  .branches { grid-template-columns:1fr; margin-top:30px }
+  .branches::before,.branch::before,.root::after { display:none }
+  .metrics { grid-template-columns:1fr 1fr }
+}
+@media(max-width:600px) {
+  header,main { padding:20px 15px }
+  .formulas { grid-template-columns:1fr }
+  .case { padding:15px }
+}
+@media print {
+  body { background:white }
+  .controls { display:none }
+  header,main { padding:0 }
+  .branches { gap:10px }
+  .content { font-size:11px }
+  details,.formula { break-inside:avoid }
+  h1 { font-size:25px }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="eyebrow">SHOPPING AGENT / LEARNING MAP</div>
+  <h1>001—003：从任务输入到后训练路线</h1>
+  <p>点击节点展开。状态按照三篇原笔记展示，不代表后续训练已经完成。</p>
+  <div class="controls">
+    <input id="search" aria-label="搜索节点" placeholder="搜索函数、字段或概念…">
+    <button id="expand">展开全部</button>
+    <button id="collapse">收起全部</button>
+    <button id="reset">清空搜索</button>
+    <button id="print">打印 / 保存 PDF</button>
+  </div>
+  <small id="counter" aria-live="polite"></small>
+</header>
+
+<main>
+  <div class="flow">
+    <span>任务输入</span><b>→</b>
+    <span>Actor / 工具 / 环境</span><b>→</b>
+    <span>轨迹</span><b>→</b>
+    <span>Reward / Summary</span><b>→</b>
+    <span>Bad Case</span><b>→</b>
+    <span class="future">SFT</span><b>→</b>
+    <span class="future">GRPO / 对照验证</span>
+  </div>
+
+  <div class="root">
+    <strong>购物 Agent 学习主干</strong>
+    <small>行动如何发生 → 怎样记录 → 如何评价 → 怎样改进</small>
+  </div>
+
+  <div class="branches">
+
+    <!-- 001 -->
+    <section class="branch">
+      <div class="branch-title">
+        <div class="number">001</div>
+        <h2>Baseline 运行与轨迹</h2>
+        <p>API Actor × 本机购物环境</p>
+      </div>
+      <div class="nodes">
+        <details open>
+          <summary>角色：谁决定，谁执行？</summary>
+          <div class="content">
+            <ul>
+              <li>运行脚本：选择任务、配置、保存和汇总。</li>
+              <li>DeepSeek V4 Pro：Actor，决定工具与参数。</li>
+              <li>ShopSimulator：执行动作，返回页面与奖励。</li>
+              <li>Judge：额外评审，原笔记中尚未验证。</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>输入：task_id → 用户需求</summary>
+          <div class="content">
+            <p>任务 JSONL：<code>{"task_id":299}</code></p>
+            <div class="chain">
+              load_tasks → env.reset(299)<br>
+              → 初始需求与状态 → messages
+            </div>
+            <p>task_id 是题号；env_idx 是环境实例。</p>
+            <p>tools 定义可用工具，不负责执行；私有答案不直接交给 Actor。</p>
+          </div>
+        </details>
+
+        <details open>
+          <summary>多轮交互：决策 → 校验 → 执行</summary>
+          <div class="content">
+            <div class="chain">
+              messages + tools<br>↓<br>
+              client.complete()<br>↓<br>
+              assistant.tool_calls<br>↓<br>
+              参数解析 / Action Guard<br>↓<br>
+              tool_call_to_action()<br>↓<br>
+              env.step()<br>↓<br>
+              observation → tool 消息 → 下一轮
+            </div>
+            <p>结束或异常后，由 finally 尝试释放环境。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Guard：非法动作如何恢复？</summary>
+          <div class="content">
+            <p>检查参数、商品 ID 与当前页面按钮。</p>
+            <p>拒绝后记录 blocked_tool_calls，并向 messages 追加错误反馈。</p>
+            <p>被拦截尝试不进入正常 steps；动作合法不保证购买正确。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>轨迹：messages 与 steps</summary>
+          <div class="content">
+            <ul>
+              <li>messages：模型交互历史。</li>
+              <li>steps：实际工具执行。</li>
+              <li>blocked_tool_calls：拦截原因。</li>
+              <li>initial_result：初始化结果。</li>
+              <li>terminal_result：终局明细。</li>
+              <li>final_reward：最终标量。</li>
+            </ul>
+            <p>任务299：8次执行＋2次拦截尝试，产生20条调用/反馈消息，再加system和user，共22条。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>部署与入口脚本</summary>
+          <div class="content">
+            <p>本次直接调用 collect_tasks，没有经过 baseline.sh。</p>
+            <ul>
+              <li>rollout.py：控制多轮交互。</li>
+              <li>tools.py：动作翻译。</li>
+              <li>actions.py：合法性校验。</li>
+              <li>client.py：环境 HTTP 接口。</li>
+              <li>smoke_shop_env.py：无模型环境检查。</li>
+            </ul>
+            <p>文件读写与PowerShell管道分别设置UTF-8。</p>
+            <p>已有索引通过检查；替换失败的具体占用者未确认。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>额外 Judge <span class="badge">待验证</span></summary>
+          <div class="content">
+            <div class="chain">
+              轨迹规范化 / 硬检查<br>
+              ＋ 冻结 Rubric<br>
+              → Judge-safe 输入<br>
+              → 评审与事件引用校验
+            </div>
+            <p>Judge不直接接收私有答案、奖励和成功标签。</p>
+            <p>生成HTML报告本身不等于调用Judge。</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 002 -->
+    <section class="branch blue">
+      <div class="branch-title">
+        <div class="number">002</div>
+        <h2>Reward 与 Summary</h2>
+        <p>终止、评分、汇总分别理解</p>
+      </div>
+      <div class="nodes">
+        <details open>
+          <summary>奖励从哪里产生？</summary>
+          <div class="content">
+            <div class="chain">
+              buy_now → click[Buy Now]<br>
+              → 环境 receive → SimServer.done<br>
+              → evaluate_purchase<br>
+              → RewardResult.to_dict<br>
+              → terminal_result / final_reward
+            </div>
+            <p>环境依据商品、goal、所选规格和价格评分，无需LLM Judge。</p>
+          </div>
+        </details>
+
+        <details open>
+          <summary>奖励分支：顺序有意义</summary>
+          <div class="content">
+            <ol>
+              <li>硬门槛不可验证：0，奖励无效。</li>
+              <li>否则硬门槛失败：−0.85。</li>
+              <li>偏好全满足、目标ID相同：1。</li>
+              <li>偏好全满足、ID不同：0.55。</li>
+              <li>其余：部分购买公式。</li>
+            </ol>
+            <p>目标ID命中本身不保证满分。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>匹配分与证据覆盖</summary>
+          <div class="content">
+            <p>品牌 .35、型号 .25、功能 .25、规格 .15。</p>
+            <p>只计算有要求的active维度，并重新归一化。</p>
+            <p><code>score = 通过数 / 要求数</code></p>
+            <p><code>coverage = 可验证数 / 要求数</code></p>
+            <p>coverage=1不代表全部通过。没有要求的维度不扣分。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>终止与弃购</summary>
+          <div class="content">
+            <ul>
+              <li>环境repeat_loop：−0.65。</li>
+              <li>环境max_steps：−0.50。</li>
+              <li>合理弃购：−0.15。</li>
+              <li>提前弃购：−0.35。</li>
+            </ul>
+            <p>合理弃购需至少2个有效结果集、2个候选，且没有已知可接受候选。</p>
+            <p>候选可接受阈值不等于购买成功标准。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>外层与环境 max_steps</summary>
+          <div class="content">
+            <p>外层rollout用尽预算，可能没有环境终局，reward_type为unknown。</p>
+            <p>环境tracker达到预算，才返回max_steps终局与−0.50奖励。</p>
+            <p>任务299第一次是外层8步停止，不能直接填上环境惩罚。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Summary 入口与聚合</summary>
+          <div class="content">
+            <p><code>summarize_trajectories(expected_task_ids, trajectories)</code></p>
+            <ul>
+              <li>只保留预期任务，预期ID应唯一。</li>
+              <li>同任务后记录覆盖先前记录。</li>
+              <li>读取reward_detail，不重算约束。</li>
+              <li>返回字典，由调用方保存。</li>
+            </ul>
+            <p>completed表示有记录，不等于环境结束。</p>
+          </div>
+        </details>
+
+        <details open>
+          <summary>统计分母与成功口径</summary>
+          <div class="content">
+            <p><b>成功率、done率、奖励有效率：</b>除以预期任务数。</p>
+            <p><b>平均奖励、匹配分、步数：</b>除以实际有记录任务数。</p>
+            <p>10题仅记录8题且reward都为1：均值仍为1，严格成功率最多0.8。</p>
+            <p>严格成功要求完整有效的gold_purchase。</p>
+            <p>未开启token计数时的0，不代表API无消耗。</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 003 -->
+    <section class="branch orange">
+      <div class="branch-title">
+        <div class="number">003</div>
+        <h2>复盘与后训练路线</h2>
+        <p>依据证据定位问题，再进入训练</p>
+      </div>
+      <div class="nodes">
+        <details open>
+          <summary>原笔记中的完成状态</summary>
+          <div class="content">
+            <p><b>完成：</b>API协议、环境smoke、单题终局、Reward/Summary阅读。</p>
+            <p><b>当时未完成：</b>额外Judge验证、本地SFT训练、GRPO训练。</p>
+            <p>单题链路完成，不等于整体能力验证。</p>
+          </div>
+        </details>
+
+        <details open>
+          <summary>任务299的 Bad Case</summary>
+          <div class="content">
+            <ul>
+              <li>第二候选显示附带配件，模型买了第一候选。</li>
+              <li>一次参数错误，一次不可见按钮调用。</li>
+              <li>推车架与推车架子的同义匹配需审查。</li>
+              <li>price_upper=null，预算pass不代表明确上限已验证。</li>
+            </ul>
+            <p>不能由单题断言普遍缺陷，也不能将独立运行差异直接归因于步数上限。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>下一站：SFT 数据</summary>
+          <div class="content">
+            <div class="chain">
+              raw trajectory<br>
+              → acceptance_reasons<br>
+              → 排除留出任务 / 去重<br>
+              → accepted trajectory<br>
+              → build_sft_row<br>
+              → messages + tools
+            </div>
+            <p>原轨迹与训练行不同；部分购买不能直接作为严格成功正例。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>SFT 标签与训练</summary>
+          <div class="content">
+            <div class="chain">
+              chat template<br>
+              → tokenizer<br>
+              → input_ids / attention_mask / labels<br>
+              → LoRA SFT
+            </div>
+            <p>工具反馈提供上下文；定位到的assistant输出区间参与监督。</p>
+            <p>原始数据验收成功，不保证模板编码也成功。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>完整后训练闭环</summary>
+          <div class="content">
+            <div class="chain">
+              Base → 数据 → SFT<br>
+              → 同协议评测与Bad Case<br>
+              → RL数据与奖励 → GRPO<br>
+              → Base / SFT / GRPO对照
+            </div>
+            <p>使用同一基础模型。DeepSeek API与另一模型的差距不能直接归因于微调。</p>
+            <p>最终测试集不参与提示词调试、选模型与训练。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>创新方向 <span class="badge">方案</span></summary>
+          <div class="content">
+            <p>证据融合：同商品、同变体、多来源可追溯。</p>
+            <p>证据状态：supported / contradicted / unknown / conflicting。</p>
+            <p>奖励不能按查看次数刷分，已有TRACE需纳入参照。</p>
+            <p>多模态、SAO、MTP在原笔记中属于讨论，不是验证成果。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>复习自测</summary>
+          <div class="content">
+            <ol>
+              <li>任务只有ID，需求从哪里来？</li>
+              <li>Guard拦截为什么不进入正常steps？</li>
+              <li>为什么匹配0.875，奖励0.18125，成功仍为0？</li>
+              <li>平均奖励为何可能掩盖漏跑？</li>
+              <li>raw轨迹为什么不能直接拿来训练？</li>
+            </ol>
+          </div>
+        </details>
+      </div>
+    </section>
+  </div>
+
+  <p id="empty">没有匹配节点，请尝试 reward、messages 或验收。</p>
+
+  <section class="case">
+    <div class="eyebrow">TASK 299 / 数值闭环</div>
+    <h2>把三个数值放回运行过程</h2>
+    <p class="muted">搜索 → 查看候选 → 核验描述与功能 → 选择汤锅 → 购买。</p>
+
+    <div class="metrics">
+      <div class="metric"><span>偏好匹配分</span><strong>0.875</strong><span>不是成功概率</span></div>
+      <div class="metric"><span>最终奖励</span><strong>0.18125</strong><span>部分购买分支</span></div>
+      <div class="metric"><span>环境已结束</span><strong>是</strong><span>done=true</span></div>
+      <div class="metric"><span>严格成功</span><strong>否</strong><span>非gold_purchase</span></div>
+    </div>
+
+    <div class="formulas">
+      <div class="formula">
+        <b>① 激活维度重新归一化</b>
+        <pre>核心功能：8/10 = 0.8，权重0.25
+汤锅规格：1，权重0.15
+品牌与型号没有要求，不参与
+
+(0.25 × 0.8 + 0.15 × 1) / 0.40
+= 0.875</pre>
+      </div>
+      <div class="formula">
+        <b>② 部分购买奖励映射</b>
+        <pre>min(上限, 基础偏移 + 缩放 × 匹配分)
+
+min(0.25, −0.30 + 0.55 × 0.875)
+= min(0.25, 0.18125)
+= 0.18125</pre>
+      </div>
+    </div>
+
+    <table>
+      <thead><tr><th>字段</th><th>本次值</th><th>含义</th></tr></thead>
+      <tbody>
+        <tr><td>done</td><td>true</td><td>环境进入终局</td></tr>
+        <tr><td>reward_valid</td><td>true</td><td>评分有效</td></tr>
+        <tr><td>purchase_success</td><td>false</td><td>未达到成功购买条件</td></tr>
+        <tr><td>strict success</td><td>false</td><td>未满足严格成功口径</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="note">
+    阅读重点：分清生命周期、评分有效性与任务质量；分清原始轨迹与训练数据；
+    分清实验观察、推测和已验证的改进。
+  </div>
+
+  <footer>
+    来源：001-baseline-api.md、002-summary-reward.md、003-review-and-next.md。<br>
+    实验目录：outputs/baseline-api/20261014_201133/。<br>
+    此图整理已有笔记，不新增API调用、训练或成绩。离线使用，无外部依赖。
+  </footer>
+</main>
+
+<script>
+const nodes = [...document.querySelectorAll("details")];
+const branches = [...document.querySelectorAll(".branch")];
+const search = document.getElementById("search");
+const counter = document.getElementById("counter");
+
+function filter() {
+  const query = search.value.trim().toLocaleLowerCase();
+  let count = 0;
+
+  nodes.forEach(node => {
+    const hit = !query ||
+      node.textContent.toLocaleLowerCase().includes(query);
+    node.classList.toggle("hidden", !hit);
+    node.classList.toggle("match", Boolean(query && hit));
+    if (hit) count++;
+    if (query && hit) node.open = true;
+  });
+
+  branches.forEach(branch => {
+    const visible = [...branch.querySelectorAll("details")]
+      .some(node => !node.classList.contains("hidden"));
+    branch.classList.toggle("hidden", !visible);
+  });
+
+  counter.textContent = query
+    ? `${count} / ${nodes.length} 个节点匹配`
+    : `${nodes.length} 个知识节点`;
+  document.getElementById("empty").style.display =
+    count ? "none" : "block";
+}
+
+search.addEventListener("input", filter);
+document.getElementById("expand").onclick =
+  () => nodes.forEach(node => node.open = true);
+document.getElementById("collapse").onclick =
+  () => nodes.forEach(node => node.open = false);
+document.getElementById("reset").onclick = () => {
+  search.value = "";
+  filter();
+  search.focus();
+};
+document.getElementById("print").onclick = () => window.print();
+
+let savedState = [];
+window.addEventListener("beforeprint", () => {
+  savedState = nodes.map(node => node.open);
+  nodes.forEach(node => {
+    node.open = true;
+    node.classList.remove("hidden");
+  });
+  branches.forEach(branch => branch.classList.remove("hidden"));
+});
+window.addEventListener("afterprint", () => {
+  filter();
+  nodes.forEach((node, i) => node.open = savedState[i]);
+});
+filter();
+</script>
+</body>
+</html>

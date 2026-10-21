@@ -1,0 +1,13 @@
+# Keep line endings as LF everywhere so that frozen SHA-256 checksums
+# (data manifests, environment runtime files) stay stable across Windows
+# (core.autocrlf=true) and Linux checkouts.
+* text=auto eol=lf
+
+# Binary artifacts must never be line-ending normalized.
+*.gz      binary
+*.parquet binary
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.sqlite3 binary
+*.whl     binary
